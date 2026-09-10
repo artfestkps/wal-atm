@@ -294,36 +294,28 @@ class AppController {
       `).join("");
     }
 
-    // Render Sports Results Podium
+    // Render Sports Results – clean achievement cards
     const studentChest = user.chestNo;
     const sportsResults = window.dataEngine.getSportsResultsForStudent(studentChest);
     const resContainer = document.getElementById("sports-published-results");
     if (resContainer) {
       if (sportsResults.length === 0) {
-        resContainer.innerHTML = `<p class="text-gray-400 text-sm italic text-center">No sports results for you.</p>`;
+        resContainer.innerHTML = `<p class="text-gray-400 text-sm italic text-center col-span-full">No sports results yet.</p>`;
       } else {
-        resContainer.innerHTML = sportsResults.map(r => `
-          <div class="fest-card p-4">
-            <div class="flex justify-between items-center mb-3">
-              <h4 class="font-bold text-yellow-300 text-md">${r.programName} (${r.category})</h4>
-              <span class="text-xs px-2 py-0.5 bg-green-900 text-green-200 rounded-full font-semibold">${r.status}</span>
-            </div>
-            <div class="grid grid-cols-3 gap-2 text-center text-xs">
-              <div class="p-2 bg-yellow-500/20 border border-yellow-400/40 rounded-lg">
-                <div class="font-bold text-yellow-300">${r.studentPosition}</div>
-                <div class="text-white font-semibold">Chest #${studentChest}</div>
-                <div class="text-gray-400">${r.studentPoints} Pts</div>
-              </div>
-              <div class="p-2 bg-gray-500/20 border border-gray-400/40 rounded-lg">
-                <div class="font-bold text-gray-300">Other Placings</div>
-                <div class="text-xs text-gray-400">See full results in the Schedule tab.</div>
-              </div>
-              <div class="p-2 bg-amber-700/20 border border-amber-600/40 rounded-lg">
-                <div class="font-bold text-amber-400">${r.status}</div>
-              </div>
-            </div>
-          </div>
-        `).join("");
+        resContainer.innerHTML = sportsResults.map(r => {
+          // pick medal emoji & accent colour based on position
+          let medal = '🥇', accentBorder = 'border-yellow-400', accentBg = 'bg-yellow-500/20', accentText = 'text-yellow-300';
+          if (r.studentPosition.startsWith('2')) { medal = '🥈'; accentBorder = 'border-gray-400'; accentBg = 'bg-gray-500/20'; accentText = 'text-gray-200'; }
+          if (r.studentPosition.startsWith('3')) { medal = '🥉'; accentBorder = 'border-amber-500'; accentBg = 'bg-amber-600/20'; accentText = 'text-amber-300'; }
+          return `
+            <div class="fest-card p-5 border-l-4 ${accentBorder} ${accentBg} flex flex-col items-center text-center space-y-2">
+              <div class="text-4xl">${medal}</div>
+              <div class="text-xl font-extrabold ${accentText}">${r.studentPosition}</div>
+              <h4 class="text-base font-bold text-white">${r.programName}</h4>
+              <span class="text-xs text-gray-300">${r.category}</span>
+              <div class="text-sm font-semibold text-yellow-200">${r.studentPoints} Points</div>
+            </div>`;
+        }).join("");
       }
     }
   }
