@@ -583,25 +583,32 @@ class DataEngine {
     return JSON.parse(localStorage.getItem("ummath_arts_results")) || DEFAULT_ARTS_RESULTS;
   }
 
-  calculateStudentPoints(chestNo) {
+  calculateSportsPoints(chestNo) {
     let total = 0;
     const cStr = String(chestNo).trim();
-    
     const sportsRes = this.getSportsResults();
     sportsRes.forEach(r => {
       if (String(r.firstChest).trim() === cStr) total += Number(r.firstPoint || 3);
       else if (String(r.secondChest).trim() === cStr) total += Number(r.secondPoint || 2);
       else if (String(r.thirdChest).trim() === cStr) total += Number(r.thirdPoint || 1);
     });
+    return total;
+  }
 
+  calculateArtsPoints(chestNo) {
+    let total = 0;
+    const cStr = String(chestNo).trim();
     const artsRes = this.getArtsResults();
     artsRes.forEach(r => {
       if (String(r.firstChest).trim() === cStr) total += Number(r.firstPoint || 10);
       else if (String(r.secondChest).trim() === cStr) total += Number(r.secondPoint || 7);
       else if (String(r.thirdChest).trim() === cStr) total += Number(r.thirdPoint || 5);
     });
-
     return total;
+  }
+
+  calculateStudentPoints(chestNo) {
+    return this.calculateSportsPoints(chestNo) + this.calculateArtsPoints(chestNo);
   }
 
   calculateTeamStandings() {
