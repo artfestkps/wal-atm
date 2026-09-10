@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ummath APP - Waltakun'26 Arts & Sports Fest</title>
+
+  <!-- PWA Manifest & Meta -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#720000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="assets/logo-red.jpg">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-fest-pattern text-gray-100 pb-24 md:pb-6">
+
+  <!-- TOP HEADER / NAVBAR -->
+  <header class="sticky top-0 z-40 bg-gray-900/90 backdrop-blur-md border-b border-yellow-500/20">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center space-x-3 cursor-pointer" data-tab="dashboard">
+        <img src="assets/logo-red.jpg" alt="Waltakun'26 Logo" class="w-10 h-10 rounded-full border border-yellow-400 object-cover shadow-lg">
+        <div>
+          <h1 class="text-lg font-black tracking-wide bg-gradient-to-r from-yellow-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
+            WALTAKUN'26
+          </h1>
+          <p class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Ummath Fest Portal</p>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+        <button data-tab="dashboard" class="nav-link px-2 py-1 transition hover:text-yellow-300">Dashboard</button>
+        <button data-tab="arts" class="nav-link px-2 py-1 transition hover:text-yellow-300">Arts</button>
+        <button data-tab="sports" class="nav-link px-2 py-1 transition hover:text-yellow-300">Sports</button>
+        <button data-tab="schedule" class="nav-link px-2 py-1 transition hover:text-yellow-300">Schedule</button>
+        <button data-tab="leaderboard" class="nav-link px-2 py-1 transition hover:text-yellow-300">Scoreboard</button>
+        <button data-tab="team_leader" id="nav-tab-team-leader" class="hidden nav-link px-2 py-1 text-purple-300 hover:text-purple-200 font-bold">Team Manager</button>
+      </nav>
+
+      <!-- Right Header Controls -->
+      <div class="flex items-center space-x-3">
+        <div id="header-user-info"></div>
+
+        <!-- PWA Install Button -->
+        <button id="pwa-install-btn" class="hidden px-3 py-1.5 text-xs font-bold bg-yellow-400 text-black rounded-lg hover:bg-yellow-300 shadow-md transition flex items-center space-x-1">
+          <span>📱 App</span>
+        </button>
+
+        <!-- Change Password / Options Menu -->
+        <button id="change-pass-btn" title="Change Password" class="p-2 text-yellow-300 hover:text-yellow-200 bg-gray-800/60 rounded-lg border border-yellow-500/30">
+          🔑
+        </button>
+
+        <!-- Logout Button -->
+        <button id="logout-btn" title="Logout" class="hidden p-2 text-red-400 hover:text-red-300 bg-gray-800/60 rounded-lg border border-red-500/30">
+          🚪
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN VIEW CONTAINERS -->
+  <main class="max-w-7xl mx-auto px-4 py-6">
+
+    <!-- VIEW 1: LOGIN -->
+    <section id="view-login" class="view-container max-w-md mx-auto my-8">
+      <div class="fest-card p-8 text-center relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-32 h-32 bg-red-900/30 rounded-full blur-xl pointer-events-none"></div>
+
+        <img src="assets/logo-red.jpg" alt="Waltakun'26" class="w-24 h-24 mx-auto rounded-full border-4 border-yellow-300 mb-4 shadow-xl object-cover">
+        
+        <h2 class="text-2xl font-extrabold text-white mb-1">Sign In to Ummath APP</h2>
+        <p class="text-xs text-yellow-200/80 mb-6">Waltakun'26 Arts & Sports Festival Portal</p>
+
+        <form id="login-form" class="space-y-4 text-left">
+          <div>
+            <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Chest No / Username</label>
+            <input type="text" id="login-username" required placeholder="Chest No / Username" class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-300 transition">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Password</label>
+            <input type="password" id="login-password" required placeholder="Password (default is Chest No)" 
+                   class="w-full px-4 py-3 bg-gray-900/90 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-300 transition">
+          </div>
+
+          <button type="submit" 
+                  class="w-full py-3.5 mt-2 bg-gradient-to-r from-red-700 via-red-800 to-amber-600 text-yellow-200 font-extrabold text-sm rounded-xl hover:brightness-110 transition shadow-lg">
+            LOG IN TO PORTAL
+          </button>
+        </form>
+
+
+      </div>
+    </section>
+
+    <!-- VIEW 2: STUDENT DASHBOARD -->
+    <section id="view-dashboard" class="view-container hidden space-y-6">
+      
+      <!-- Student Profile Header Card -->
+      <div class="fest-card p-6 maroon-gradient-bg relative overflow-hidden border-2 border-yellow-400/40">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10">
+          
+          <!-- Round Avatar Image -->
+          <div class="relative">
+            <img id="dash-avatar-img" src="assets/logo-gold.jpg" alt="Student Photo" class="avatar-frame">
+            <div class="absolute -bottom-1 -right-1 bg-yellow-400 text-black font-extrabold text-[10px] px-2 py-0.5 rounded-full shadow">
+              ROUND
+            </div>
+          </div>
+
+          <!-- Student Details -->
+          <div class="text-center md:text-left flex-1">
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-2">
+              <span id="dash-student-team" class="px-3 py-1 text-xs font-bold rounded-full badge-siyadah">SIYADAH</span>
+              <span id="dash-student-cat" class="px-3 py-1 text-xs font-semibold bg-gray-800/80 text-yellow-300 rounded-full border border-yellow-400/30">SUB JUNIOR</span>
+              <span id="dash-student-class" class="px-3 py-1 text-xs font-semibold bg-gray-800/80 text-gray-200 rounded-full">S1</span>
+            </div>
+
+            <h2 id="dash-student-name" class="text-2xl md:text-3xl font-extrabold text-white mb-1">MUHAMMED RIYAN T</h2>
+            <p id="dash-student-chest" class="text-sm font-semibold text-yellow-200">Chest No: 663</p>
+          </div>
+
+          <!-- Total Points Display -->
+          <div class="fest-card p-4 bg-gray-900/80 text-center min-w-[130px] border border-yellow-400/30">
+            <div class="text-xs uppercase font-bold text-gray-400 tracking-wider">Total Points</div>
+            <div id="dash-total-points" class="text-3xl font-black text-yellow-300 my-1">0</div>
+            <div class="text-[10px] text-green-400 font-semibold">Live Score</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Quick Summary Stats Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="fest-card p-4 flex items-center space-x-4 cursor-pointer" data-tab="arts">
+          <div class="p-3 bg-red-900/50 rounded-xl text-yellow-300 text-2xl">🎨</div>
+          <div>
+            <div id="dash-arts-count" class="text-xl font-bold text-white">0</div>
+            <div class="text-xs text-gray-400 font-medium">Arts Registered</div>
+          </div>
+        </div>
+
+        <div class="fest-card p-4 flex items-center space-x-4 cursor-pointer" data-tab="sports">
+          <div class="p-3 bg-yellow-500/20 rounded-xl text-yellow-300 text-2xl">⚽</div>
+          <div>
+            <div id="dash-sports-count" class="text-xl font-bold text-white">0</div>
+            <div class="text-xs text-gray-400 font-medium">Sports Registered</div>
+          </div>
+        </div>
+
+        <div class="fest-card p-4 col-span-2 md:col-span-1 flex items-center space-x-4 cursor-pointer" data-tab="schedule">
+          <div class="p-3 bg-purple-900/50 rounded-xl text-purple-300 text-2xl">📅</div>
+          <div>
+            <div class="text-sm font-bold text-white">Master Schedule</div>
+            <div class="text-xs text-gray-400 font-medium">Cross-Referenced</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personalized Event Timeline -->
+      <div class="fest-card p-6">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-between">
+          <span>⏰ My Program Schedule Timeline</span>
+          <button data-tab="schedule" class="text-xs font-semibold text-yellow-300 hover:underline">View All →</button>
+        </h3>
+        <div id="dash-schedule-timeline" class="space-y-3">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- VIEW 3: ARTS PROGRAMS -->
+    <section id="view-arts" class="view-container hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold text-white">My Arts Programs</h2>
+          <p class="text-xs text-gray-400">Registered academic and cultural competitions</p>
+        </div>
+      </div>
+
+      <div id="arts-program-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: SPORTS & RESULTS -->
+    <section id="view-sports" class="view-container hidden space-y-6">
+      <div>
+        <h2 class="text-xl font-bold text-white">Sports Events & Live Results</h2>
+        <p class="text-xs text-gray-400">Track candidates and published sports scores</p>
+      </div>
+
+      <!-- Student's Sports Items -->
+      <div>
+        <h3 class="text-sm font-bold text-yellow-300 uppercase tracking-wider mb-3">Registered Sports Events</h3>
+        <div id="sports-program-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Live Sports Published Podium -->
+      <div class="mt-8">
+        <h3 class="text-sm font-bold text-yellow-300 uppercase tracking-wider mb-3">🏆 Published Sports Results</h3>
+        <div id="sports-published-results" class="grid grid-cols-1 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: MASTER SCHEDULE -->
+    <section id="view-schedule" class="view-container hidden space-y-6">
+      <div>
+        <h2 class="text-xl font-bold text-white">Master Festival Schedule</h2>
+        <p class="text-xs text-gray-400">Complete timeline of dates, venues, and timings</p>
+      </div>
+
+      <div id="master-schedule-list" class="space-y-3">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 6: TEAM LEADER PORTAL -->
+    <section id="view-team_leader" class="view-container hidden space-y-6">
+      <div class="fest-card p-6 border-l-4 border-purple-500">
+        <h2 id="leader-team-title" class="text-2xl font-extrabold text-white mb-1">TEAM LEADER PORTAL</h2>
+        <p class="text-xs text-purple-200">Scoped student lookup and team management</p>
+      </div>
+
+      <!-- Team Stats Card -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="fest-card p-4 text-center">
+          <div class="text-xs font-bold text-gray-400 uppercase">Team Members</div>
+          <div id="leader-team-members-count" class="text-2xl font-extrabold text-white my-1">0</div>
+        </div>
+        <div class="fest-card p-4 text-center">
+          <div class="text-xs font-bold text-gray-400 uppercase">Team Points</div>
+          <div id="leader-team-total-points" class="text-2xl font-extrabold text-yellow-300 my-1">0</div>
+        </div>
+      </div>
+
+      <!-- Scoped Student Search Box -->
+      <div class="fest-card p-6">
+        <h3 class="text-base font-bold text-white mb-2">🔍 Search Team Student</h3>
+        <p class="text-xs text-gray-400 mb-4">Enter Chest Number to inspect details (Restricted strictly to your team members).</p>
+
+        <form id="team-search-form" class="flex gap-2 mb-6">
+          <input type="text" id="team-search-chest" required placeholder="Enter Chest No (e.g. 663)" 
+                 class="flex-1 px-4 py-3 bg-gray-900/90 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-300 transition">
+          <button type="submit" class="px-6 py-3 bg-yellow-400 text-black font-extrabold text-sm rounded-xl hover:bg-yellow-300 transition">
+            SEARCH
+          </button>
+        </form>
+
+        <div id="team-search-result-box">
+          <!-- Search Results injected here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 7: LEADERBOARD -->
+    <section id="view-leaderboard" class="view-container hidden space-y-6">
+      <div>
+        <h2 class="text-xl font-bold text-white">Festival Leaderboard & Scoreboard</h2>
+        <p class="text-xs text-gray-400">Live points breakdown across Qiyadah, Siyadah, Wifadah & Rifadah</p>
+      </div>
+
+      <div id="team-standings-list" class="space-y-4">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-gray-900/95 backdrop-blur-md border-t border-yellow-500/20 px-2 py-2 flex justify-around items-center text-center text-xs">
+    <button data-tab="dashboard" class="mobile-nav-item flex flex-col items-center py-1 px-2 text-gray-400 hover:text-yellow-300">
+      <span class="text-lg">🏠</span>
+      <span>Home</span>
+    </button>
+    <button data-tab="arts" class="mobile-nav-item flex flex-col items-center py-1 px-2 text-gray-400 hover:text-yellow-300">
+      <span class="text-lg">🎨</span>
+      <span>Arts</span>
+    </button>
+    <button data-tab="sports" class="mobile-nav-item flex flex-col items-center py-1 px-2 text-gray-400 hover:text-yellow-300">
+      <span class="text-lg">⚽</span>
+      <span>Sports</span>
+    </button>
+    <button data-tab="schedule" class="mobile-nav-item flex flex-col items-center py-1 px-2 text-gray-400 hover:text-yellow-300">
+      <span class="text-lg">📅</span>
+      <span>Schedule</span>
+    </button>
+    <button data-tab="leaderboard" class="mobile-nav-item flex flex-col items-center py-1 px-2 text-gray-400 hover:text-yellow-300">
+      <span class="text-lg">🏆</span>
+      <span>Scores</span>
+    </button>
+  </nav>
+
+  <!-- MODAL 1: CHANGE PASSWORD -->
+  <div id="change-password-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="fest-card p-6 w-full max-w-md bg-gray-900 border border-yellow-500/40 relative">
+      <button onclick="window.appController.closeModal('change-password-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg font-bold">&times;</button>
+
+      <h3 class="text-lg font-bold text-white mb-2">🔑 Change Password</h3>
+      <p class="text-xs text-gray-400 mb-4">Set a custom password for your account.</p>
+
+      <form id="change-pass-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-300 uppercase mb-1">New Password</label>
+          <input type="password" id="new-password" required minlength="3" placeholder="Enter new password"
+                 class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-300">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Confirm New Password</label>
+          <input type="password" id="confirm-password" required minlength="3" placeholder="Confirm new password"
+                 class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-300">
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-yellow-400 text-black font-extrabold text-sm rounded-xl hover:bg-yellow-300 transition">
+          UPDATE PASSWORD
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

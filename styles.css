@@ -1,0 +1,124 @@
+/* 
+ * Ummath APP - Waltakun'26 Custom Stylesheet
+ * Brand Colors: Maroon (#720000), Gold (#F8EC8A), Slate (#282828)
+ */
+
+:root {
+  --color-maroon: #720000;
+  --color-maroon-dark: #4a0000;
+  --color-gold: #F8EC8A;
+  --color-gold-dark: #d6ca67;
+  --color-charcoal: #282828;
+  --color-charcoal-light: #383838;
+  --color-bg-dark: #161616;
+  --color-card-bg: #202020;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--color-bg-dark);
+  color: #f3f4f6;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Concentric Circle Brand Background Pattern */
+.bg-fest-pattern {
+  background-color: var(--color-bg-dark);
+  background-image: radial-gradient(circle, rgba(248, 236, 138, 0.04) 20%, transparent 20%),
+                    radial-gradient(circle, rgba(114, 0, 0, 0.15) 30%, transparent 30%);
+  background-size: 80px 80px;
+  background-position: 0 0, 40px 40px;
+}
+
+/* Gold Gradient Border Effects */
+.gold-border {
+  border: 1px solid rgba(248, 236, 138, 0.3);
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #F8EC8A 0%, #D8C252 100%);
+  color: #282828;
+}
+
+.maroon-gradient-bg {
+  background: linear-gradient(135deg, #720000 0%, #4A0000 100%);
+}
+
+/* Card Styling */
+.fest-card {
+  background: rgba(32, 32, 32, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(248, 236, 138, 0.2);
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fest-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -5px rgba(248, 236, 138, 0.15);
+}
+
+/* Round Profile Avatar Image */
+.avatar-frame {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--color-gold);
+  box-shadow: 0 0 15px rgba(248, 236, 138, 0.4);
+  object-fit: cover;
+  background-color: var(--color-charcoal-light);
+}
+
+.avatar-frame-sm {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  object-fit: cover;
+}
+
+/* Team Badge Colors */
+.badge-qiyadah {
+  background-color: #8b5cf6;
+  color: #ffffff;
+}
+.badge-siyadah {
+  background-color: #059669;
+  color: #ffffff;
+}
+.badge-wifadah {
+  background-color: #d97706;
+  color: #ffffff;
+}
+.badge-rifadah {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* Navigation active indicator */
+.nav-link.active {
+  color: var(--color-gold);
+  border-bottom: 2px solid var(--color-gold);
+}
+.mobile-nav-item.active {
+  color: var(--color-gold);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-charcoal-light);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
