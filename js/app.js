@@ -11,7 +11,13 @@ class AppController {
   init() {
     document.addEventListener("DOMContentLoaded", () => {
       this.bindEvents();
-      this.render();
+      // On load, if logged in go to dashboard (or team leader), else go to login
+      const user = window.authManager.getCurrentUser();
+      if (user) {
+        this.switchTab(user.role === "team_leader" ? "team_leader" : "dashboard");
+      } else {
+        this.switchTab("login");
+      }
     });
   }
 
@@ -214,8 +220,14 @@ class AppController {
     }
 
     // Calculate Points
-    const points = window.dataEngine.calculateStudentPoints(student.chestNo);
-    document.getElementById("dash-total-points").textContent = points;
+    const sportsPoints = window.dataEngine.calculateSportsPoints(student.chestNo);
+    const artsPoints = window.dataEngine.calculateArtsPoints(student.chestNo);
+    
+    const sportsPointsEl = document.getElementById("dash-sports-points");
+    const artsPointsEl = document.getElementById("dash-arts-points");
+    
+    if (sportsPointsEl) sportsPointsEl.textContent = sportsPoints;
+    if (artsPointsEl) artsPointsEl.textContent = artsPoints;
 
     // Programs Registered Summary
     const artsPrograms = window.dataEngine.getProgramsForStudent(student.chestNo);
